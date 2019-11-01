@@ -7,7 +7,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "Bouncing Mushroom "); 
+	sf::RenderWindow window(sf::VideoMode(640, 480), "Bouncing Mushroom "); // minimised line format 
 
 	sf::Texture mushroomTexture;
 	if (!mushroomTexture.loadFromFile("dependencies/images/mushroom.png"))
@@ -112,14 +112,14 @@ int main()
 			}
 		}
 		//update game objects
-		// this checks is the object is within the bounds of the game
+		// this checks is the object is within the bounds of the game, the x get size is a check to find the bounds on the x axis at the top right of the game screen ....same for y but its at the bottom right
 		if ((mushroom.getPosition().x + (size.x / 2) > window.getSize().x && increment.x > 0) || (mushroom.getPosition().x - (size.x / 2) < 0 && increment.x < 0))
 		{
 			// reverse direction on the x axis 
 			increment.x = -increment.x;
 			mushroom.setColor(sf::Color::Blue);
 		}
-		if ((mushroom.getPosition().y + (size.y / 2) > window.getSize().y && increment.y > 0) || (mushroom.getPosition().y - (size.y / 2) < 0 && increment.y < 0))
+		if ((mushroom.getPosition().y + (size.y / 2) > window.getSize().y && increment.y > 0) || (mushroom.getPosition().y - (size.y / 2) < 0 && increment.y < 0))// this is the same but for y axis up and down
 		{
 			// reverse direction on the y axis 
 			increment.y = -increment.y;
@@ -129,7 +129,7 @@ int main()
 
 		mushroom.setPosition(mushroom.getPosition() + increment);
 
-		window.clear(sf::Color(255,255,255,255));
+		window.clear(sf::Color(255,255,255,255)); // rgb... last one is transparency , this sets the background
 
 		//window.clear(sf::Color::Magenta);
 		//window.draw(rect);
