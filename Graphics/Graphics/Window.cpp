@@ -44,7 +44,7 @@ void Window::update()
 
 bool Window::isDone()
 {
-	return isDone();
+	return m_isDone;
 }
 
 bool Window::isFullscreen()
@@ -74,6 +74,7 @@ void Window::setup(const std::string & l_title, const sf::Vector2u & l_size)
 	m_windowTitle = l_title;
 	m_windowSize = l_size;
 	m_isFullScreen = false;
+	m_window.setFramerateLimit(60); // 60 fps frame cap  
 	m_isDone = false;
 	create();
 

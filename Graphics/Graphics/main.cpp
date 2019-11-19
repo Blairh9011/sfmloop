@@ -1,4 +1,4 @@
-#include "SFML/include/SFML/Graphics.hpp"
+#include "Game.h"
 #include <iostream>
 
 
@@ -7,7 +7,18 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "Bouncing Mushroom "); // minimised line format 
+
+	Game game; // creating our game object 
+	while (!game.getWindow()->isDone()) {
+	
+		// game loop 
+		game.handleInput();
+		game.update();
+		game.render();
+		game.RestartClock();
+	}
+
+	/*sf::RenderWindow window(sf::VideoMode(640, 480), "Bouncing Mushroom "); // minimised line format 
 
 	sf::Texture mushroomTexture;
 	if (!mushroomTexture.loadFromFile("dependencies/images/mushroom.png"))
@@ -147,7 +158,7 @@ int main()
 	}
 
 
-
+	*/
 
 
 	return 0;

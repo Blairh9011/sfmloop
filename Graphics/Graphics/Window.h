@@ -27,8 +27,9 @@ public:
 
 private:
 	void setup(const std::string& l_title, const sf::Vector2u& l_size);
-	void destroy();
 	void create();
+	void destroy();
+	
 
 	sf::RenderWindow m_window; // member variable 
 	sf::Vector2u m_windowSize;
