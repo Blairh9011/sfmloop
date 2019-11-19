@@ -72,18 +72,19 @@ void Snake::Extend() // makes the snake bigger
 	if (m_snakeBody.size() > 1)
 	{
 		SnakeSegment& tail_bone = m_snakeBody[m_snakeBody.size() - 2];
-	}
 
-	if (tail_head.position.x == tail_bone.position.x)
-	{
-		if (tail_head.position.y > tail_bone.position)
-		{
-			m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y + 1));
 
-		}
-		else
+		if (tail_head.position.x == tail_bone.position.x)
 		{
-			m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y - 1));
+			if (tail_head.position.y > tail_bone.position.y)
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y + 1));
+
+			}
+			else
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y - 1));
+			}
 		}
 	}
 }
