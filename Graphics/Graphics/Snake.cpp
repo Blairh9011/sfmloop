@@ -86,6 +86,36 @@ void Snake::Extend() // makes the snake bigger
 				m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y - 1));
 			}
 		}
+		else if (tail_head.position.y == tail_bone.position.y) 
+		{
+			if (tail_head.position.x > tail_bone.position.x)
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x + 1, tail_head.position.y));
+			}
+			else
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x - 1, tail_head.position.y));
+			}
+		}
+		else
+		{
+			if (m_dir == Direction::Up)
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y + 1));
+			}
+			else if (m_dir == Direction::Down)
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y - 1));
+			}
+			else if (m_dir == Direction::Left)
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x + 1, tail_head.position.y));
+			}
+			else if (m_dir == Direction::Right)
+			{
+				m_snakeBody.push_back(SnakeSegment(tail_head.position.x - 1, tail_head.position.y));
+			}
+		}
 	}
 }
 
