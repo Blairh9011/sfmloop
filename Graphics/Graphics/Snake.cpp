@@ -138,6 +138,10 @@ void Snake::Move()
 
 void Snake::Tick()
 {
+	if (m_snakeBody.empty()) { return; }
+	if (m_dir == Direction::None) { return; }
+	Move();
+	CheckCollision();
 }
 
 void Snake::Cut(int l_segments)
