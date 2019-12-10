@@ -1,17 +1,22 @@
 #ifndef SNAKE
+#define SNAKE
 
 #include "SFML/include/SFML/Graphics.hpp"
-#include "SFML/include/SFML/Window.hpp"
 #include <vector>
 
-using SnakeContainer = std::vector<SnakeSegment>;
-enum class Direction{None,Up,Down,Left,Right};
 
 struct SnakeSegment
 {
 	SnakeSegment(int x, int y) : position(x, y) {}
 	sf::Vector2i position;
 };
+
+
+
+using SnakeContainer = std::vector<SnakeSegment>;
+enum class Direction{None,Up,Down,Left,Right};
+
+
 
 class Snake
 {
@@ -48,21 +53,8 @@ private:
 	int m_speed; // speed of the snake.
 	int m_lives; // lives.
 	int m_score; // score.
-	bool m_lost; // losing state.
+	bool m_lost; // losing stat.
 	sf::RectangleShape m_bodyRect; // Shape used for rendering
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif SNAKE

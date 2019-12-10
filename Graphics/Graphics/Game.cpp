@@ -1,14 +1,13 @@
 #include "Game.h"
 
-#include "SFML/include/SFML/Graphics.hpp"
-#include "SFML/include/SFML/Window.hpp"
 
-Game::Game()  : m_window("Chapter 2", sf::Vector2u(800,600))
+Game::Game()  : m_window("Snake", sf::Vector2u(800,600)),m_snake(m_world.GetBlockSize()),m_world(sf::Vector2u(800,600))
 {
 	// setting up class members 
-	m_mushroomTexture.loadFromFile("dependencies/images/mushroom.png");
-	m_mushroom.setTexture(m_mushroomTexture);
-	m_increment = sf::Vector2i(400, 400); // 400 px per second
+	//m_mushroomTexture.loadFromFile("dependencies/images/mushroom.png");
+	//m_mushroom.setTexture(m_mushroomTexture);
+	//m_increment = sf::Vector2i(400, 400); // 400 px per second
+
 }
 
 Game::~Game()
@@ -17,19 +16,53 @@ Game::~Game()
 
 void Game::handleInput()
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_snake.GetDirection() != Direction::Down)
+	{
+		m_snake.SetDirection(Direction::Up);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && m_snake.GetDirection() != Direction::Up)
+	{
+		m_snake.SetDirection(Direction::Down);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && m_snake.GetDirection() != Direction::Right)
+	{
+		m_snake.SetDirection(Direction::Left);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && m_snake.GetDirection() != Direction::Left)
+	{
+		m_snake.SetDirection(Direction::Right);
+	}
 }
 
 void Game::update()
 {
-	m_window.update(); // update window events
-	moveMushroom();
+	//m_window.update(); // update window events
+	//moveMushroom();
+	float timestep = 1.0f / m_snake.GetSpeed();
+
+	if (m_elapsed >= timestep)
+	{
+		m_snake.Tick();
+		m_world.Update(m_snake);
+		m_elapsed -= timestep;
+		if (m_snake.HasLost())
+		{
+			m_snake.Reset();
+		}
+	}
 }
 
 void Game::render()
 {
 	m_window.beginDraw();//clear the screen
-	m_window.draw(m_mushroom);// draw the shroom
-	m_window.endDraw();// display the shroom 
+	//Render here
+	
+	//m_window.draw(m_mushroom);// draw the shroom
+	//m_window.endDraw();// display the shroom 
+	m_world.Render(*m_window.GetRenderWindow());
+	m_snake.Render(*m_window.GetRenderWindow());
+
+	m_window.endDraw();
 }
 
 Window* Game::getWindow()
@@ -39,13 +72,15 @@ Window* Game::getWindow()
 
 sf::Time Game::GetElasped()
 {
-	return m_elapsed;
+	return m_clock.getElapsedTime();
 }
 
 void Game::RestartClock()
 {
-	m_elapsed = m_clock.restart();
+	m_elapsed += m_clock.restart().asSeconds();
 }
+
+
 
 void Game::moveMushroom()
 {
@@ -66,7 +101,7 @@ void Game::moveMushroom()
 
 	}
 
-	float fElapsed = m_elapsed.asSeconds();
+	float fElapsed = m_elapsed;
 
 	m_mushroom.setPosition(m_mushroom.getPosition().x + (m_increment.x * fElapsed),m_mushroom.getPosition().y + (m_increment.y  * fElapsed));
 }

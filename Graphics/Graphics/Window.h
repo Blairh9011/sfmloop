@@ -1,4 +1,5 @@
 #ifndef WINDOW                // global wrapper , this defines the class with a more global wrapper, aposed to #pragma once , its job is to 
+#define WINDOW
 
 #include "SFML/include/SFML/Graphics.hpp"
 #include "SFML/include/SFML/Window.hpp"
@@ -20,6 +21,7 @@ public:
 	bool isFullscreen();
 
 	sf::Vector2u getWindowSize();
+	sf::RenderWindow* GetRenderWindow();
 
 	void toggleFullScreen();
 
@@ -38,4 +40,4 @@ private:
 	bool m_isFullScreen;
 };
 
-#endif
+#endif WINDOW
