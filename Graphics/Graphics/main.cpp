@@ -1,23 +1,118 @@
-#include "Game.h"
+//#include "Game.h"
+#include "Bat.h"
+#include "Ball.h"
+#include <sstream>
+#include <cstdlib>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <iostream>
 
-
+using namespace sf;
 
 
 
 int main()
 {
+	int windowWidth = 1024;
+	int windowHeight = 768;
+	// Make a window that is 1024 by 768 pixels
+	// And has the title "Pong"
+	RenderWindow window(VideoMode(windowWidth, windowHeight), "bRICKbREAKER");
 
-	Game game; // creating our game object 
-	while (!game.getWindow()->isDone()) {
-	
-		// game loop 
-		game.handleInput();
-		game.update();
-		game.render();
-		game.RestartClock();
+	int score = 0;
+	int lives = 3;
+
+	// create a bat
+	Bat bat(windowWidth / 2, windowHeight - 20);
+
+	// create a ball
+	Ball ball(windowWidth / 2, 1);
+
+	// Create a "Text" object called "message". Weird but we will learn about objects soon
+	Text hud;
+
+	// We need to choose a font
+	Font font;
+
+	font.loadFromFile("DS-DIGIT.ttf");
+
+	// Set the font to our message
+	hud.setFont(font);
+
+	// Make it really big
+	hud.setCharacterSize(75);
+
+	// Choose a color
+	hud.setFillColor(sf::Color::White);
+	while (window.isOpen())
+	{
+		/*
+			Handle the player input
+			*********************************************************************
+			*********************************************************************
+			*********************************************************************
+		*/
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				// Someone closed the window- bye
+				window.close();
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Left))
+		{
+			// move left...
+			bat.moveLeft();
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			// move right...
+			bat.moveRight();
+		}
+		else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			// quit...
+			// Someone closed the window- bye
+			window.close();
+		}
+
 	}
+	return 0;
+}
 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Game game; // creating our game object 
+	//while (!game.getWindow()->isDone()) {
+	//
+	//	// game loop 
+	//	game.handleInput();
+	//	game.update();
+	//	game.render();
+	//	game.RestartClock();
+	//}
+	//
 	/*sf::RenderWindow window(sf::VideoMode(640, 480), "Bouncing Mushroom "); // minimised line format 
 
 	sf::Texture mushroomTexture;
@@ -161,6 +256,6 @@ int main()
 	*/
 
 
-	return 0;
+	//return 0;
  
-}
+//}
