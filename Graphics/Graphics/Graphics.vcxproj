@@ -126,17 +126,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Bat.cpp" />
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BlockField.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game1.cpp" />
+    <ClCompile Include="GlobalObjects.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="Snake.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
-    <ClInclude Include="Bat.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="BlockField.h" />
+    <ClInclude Include="Game1.h" />
+    <ClInclude Include="GlobalObjects.h" />
+    <ClInclude Include="Paddle.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="World.h" />

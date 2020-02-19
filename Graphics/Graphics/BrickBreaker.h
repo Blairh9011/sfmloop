@@ -1,5 +1,5 @@
-#ifndef GAME1
-#define GAME1
+#ifndef BRICKBREAKER
+#define BRICKBREAKER
 
 #include <SFML/Graphics.hpp>
 #include "BlockField.h"
@@ -18,5 +18,4 @@ public:
 	static void Draw(sf::RenderWindow & window);
 };
 
-#endif //GAME1
-
+#endif // BRICKBREAKER

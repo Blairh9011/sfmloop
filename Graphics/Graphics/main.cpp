@@ -1,6 +1,7 @@
-//#include "Game.h"
-#include "Bat.h"
-#include "Ball.h"
+#include "Game1.h"
+#include "GlobalObjects.h"
+#include "BlockField.h"
+#include "Paddle.h"
 #include <sstream>
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
@@ -13,74 +14,120 @@ using namespace sf;
 
 int main()
 {
-	int windowWidth = 1024;
-	int windowHeight = 768;
-	// Make a window that is 1024 by 768 pixels
-	// And has the title "Pong"
-	RenderWindow window(VideoMode(windowWidth, windowHeight), "bRICKbREAKER");
+	sf::Event event;
+	sf::Clock clock;
+	float deltaTime;
 
-	int score = 0;
-	int lives = 3;
+	//BlocksField blocksField(sf::Vector2f(512.f, 150.f), sf::Vector2f(0.f, 0.f), sf::Color::Yellow, 11, 6);
+	//BlocksField blocksField(sf::Vector2f(20.f, 50.f), sf::Vector2f(200.f, 50.f), sf::Color::Yellow, 0, 0);
+	//this is the block field consiting of7 rows of 9 blocks , width of window and 2
+	BlockField blocksField(sf::Vector2f(GlobalObjects::windowWidth, 200.f), sf::Vector2f(0.f, 0.f), sf::Color::Yellow, 9, 7);
 
-	// create a bat
-	Bat bat(windowWidth / 2, windowHeight - 20);
+	//Game::createBall(Ball(10.f, sf::Vector2f(300.f, 400.f), sf::Color::Red, 50.f));
+	Game::createBall(Ball(10.f, sf::Vector2f(225.0710f, 400.f), sf::Color::Red, 180.f, 110.f));
 
-	// create a ball
-	Ball ball(windowWidth / 2, 1);
+	//Paddle paddle(sf::Vector2f(100.f, 10.f), sf::Vector2f(256.f, 450.f), sf::Color::Green, 200.f);
+	Game::createPaddle(Paddle(sf::Vector2f(100.f, 10.f), sf::Vector2f(256.f, 450.f), sf::Color::Green, 200.f));
 
-	// Create a "Text" object called "message". Weird but we will learn about objects soon
-	Text hud;
-
-	// We need to choose a font
-	Font font;
-
-	font.loadFromFile("DS-DIGIT.ttf");
-
-	// Set the font to our message
-	hud.setFont(font);
-
-	// Make it really big
-	hud.setCharacterSize(75);
-
-	// Choose a color
-	hud.setFillColor(sf::Color::White);
-	while (window.isOpen())
+	while (GlobalObjects::window.isOpen())
 	{
-		/*
-			Handle the player input
-			*********************************************************************
-			*********************************************************************
-			*********************************************************************
-		*/
+		deltaTime = clock.restart().asSeconds();
 
-		Event event;
-		while (window.pollEvent(event))
+		while (GlobalObjects::window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
-				// Someone closed the window- bye
-				window.close();
+			if (event.type == sf::Event::Closed)
+				GlobalObjects::window.close();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Left))
-		{
-			// move left...
-			bat.moveLeft();
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::Right))
-		{
-			// move right...
-			bat.moveRight();
-		}
-		else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			// quit...
-			// Someone closed the window- bye
-			window.close();
-		}
 
+		Game::Update(deltaTime, blocksField);
+
+		GlobalObjects::window.clear(sf::Color::Black);
+
+		blocksField.Draw(GlobalObjects::window);
+		Game::Draw(GlobalObjects::window);
+
+		GlobalObjects::window.display();
 	}
+
 	return 0;
 }
+
+
+
+
+
+
+
+//{
+//	int windowWidth = 1024;
+//	int windowHeight = 768;
+//	// Make a window that is 1024 by 768 pixels
+//	// And has the title "Pong"
+//	RenderWindow window(VideoMode(windowWidth, windowHeight), "bRICKbREAKER");
+//
+//	int score = 0;
+//	int lives = 3;
+//
+//	// create a bat
+//	Bat bat(windowWidth / 2, windowHeight - 20);
+//
+//	// create a ball
+//	Ball ball(windowWidth / 2, 1);
+//
+//	// Create a "Text" object called "message". Weird but we will learn about objects soon
+//	Text hud;
+//
+//	// We need to choose a font
+//	Font font;
+//
+//	font.loadFromFile("DS-DIGIT.ttf");
+//
+//	// Set the font to our message
+//	hud.setFont(font);
+//
+//	// Make it really big
+//	hud.setCharacterSize(75);
+//
+//	// Choose a color
+//	hud.setFillColor(sf::Color::White);
+//	while (window.isOpen())
+//	{
+//		/*
+//			Handle the player input
+//			*********************************************************************
+//			*********************************************************************
+//			*********************************************************************
+//		*/
+//
+//		Event event;
+//		while (window.pollEvent(event))
+//		{
+//			if (event.type == Event::Closed)
+//				// Someone closed the window- bye
+//				window.close();
+//		}
+//
+//		if (Keyboard::isKeyPressed(Keyboard::Left))
+//		{
+//			// move left...
+//			bat.moveLeft();
+//		}
+//		else if (Keyboard::isKeyPressed(Keyboard::Right))
+//		{
+//			// move right...
+//			bat.moveRight();
+//		}
+//		else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
+//		{
+//			// quit...
+//			// Someone closed the window- bye
+//			window.close();
+//		}
+//
+//	}
+//	return 0;
+//}
 
 
 	

@@ -1,34 +1,43 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+#ifndef BALL
+#define BALL
 
-using namespace sf;
+
+#include <SFML/Graphics.hpp>
+#include "Block.h"
+#include "GlobalObjects.h"
+#include "Paddle.h"
 
 class Ball
 {
 private:
-	Vector2f position;
+	sf::CircleShape circle;
+	float speed;
+	sf::Vector2f velocity;
 
-	// A RectangleShape obj 
-	RectangleShape ballShape;
-
-	float xVelocity = .2f;
-	float yVelocity = .2f;
+	void setAngle(float ang);
+	float getAngle();
 
 public:
-	Ball(float startX, float startY);
+	Ball(float radius, const sf::Vector2f & position, const sf::Color & color, float speed, float angle);
 
-	FloatRect getPosition();
+	bool checkColission(const Block & block);
+	bool checkColission(const Paddle & paddle);
+	bool exist() { return bottom() < GlobalObjects::windowHeight; }
 
-	RectangleShape getShape();
+	void Update(float deltaTime);
 
-	float getXVelocity();
+	void Draw(sf::RenderWindow & window);
 
-	void reboundSides();
+	float left()   const { return circle.getPosition().x - circle.getRadius(); }
+	float rigth()  const { return circle.getPosition().x + circle.getRadius(); }
+	float top()    const { return circle.getPosition().y - circle.getRadius(); }
+	float bottom() const { return circle.getPosition().y + circle.getRadius(); }
 
-	void reboundBatOrTop();
-
-	void hitBottom();
-
-	void update();
-
+	float getX() const { return circle.getPosition().x; }
+	float getY() const { return circle.getPosition().y; }
+	sf::Vector2f getPosition() const { return circle.getPosition(); }
+	float getRadius() const { return circle.getRadius(); }
+	sf::Vector2f getVelocity() const { return velocity; }
 };
+
+#endif BALL
